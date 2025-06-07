@@ -1,52 +1,52 @@
 return {
-	{
-		'nvim-telescope/telescope.nvim',
-		tag = '0.1.8',
-	},
+    {
+        'nvim-telescope/telescope.nvim',
+        tag = '0.1.8',
+    },
 
-	{
-		'projekt0n/github-nvim-theme',
-		name = 'github-theme',
-		lazy = false,
-		priority = 1000,
-		config = function()
-			require('github-theme').setup({
-				options = {
-					transparent = true,
-				}
-			})
+    {
+        'projekt0n/github-nvim-theme',
+        name = 'github-theme',
+        lazy = false,
+        priority = 1000,
+        config = function()
+            require('github-theme').setup({
+                options = {
+                    transparent = true,
+                }
+            })
 
-			vim.cmd('colorscheme github_dark_default')
+            vim.cmd('colorscheme github_dark_default')
 
-			-- 💡 Forcefully clear background if needed
-			vim.cmd([[highlight Normal guibg=NONE ctermbg=NONE]])
-			vim.cmd([[highlight NormalNC guibg=NONE ctermbg=NONE]])
-			vim.cmd([[highlight NormalFloat guibg=NONE ctermbg=NONE]])
-			vim.cmd([[highlight FloatBorder guibg=NONE ctermbg=NONE]])
-		end,
-	},
+            -- 💡 Forcefully clear background if needed
+            vim.cmd([[highlight Normal guibg=NONE ctermbg=NONE]])
+            vim.cmd([[highlight NormalNC guibg=NONE ctermbg=NONE]])
+            vim.cmd([[highlight NormalFloat guibg=NONE ctermbg=NONE]])
+            vim.cmd([[highlight FloatBorder guibg=NONE ctermbg=NONE]])
+        end,
+    },
 
-	{
-		"nvim-treesitter/nvim-treesitter",
-		branch = "master",
-		lazy = false,
-		build = ":TSUpdate",
-		config = function()
-			require("nvim-treesitter.configs").setup({
-				ensure_installed = { "lua", "javascript", "typescript", "html", "css" }, -- choose your languages
-				sync_install = false,
-				auto_install = true,
-				highlight = {
-					enable = true, -- enables syntax highlighting
-					additional_vim_regex_highlighting = false,
-				},
-			})
-		end,
-	},
+    {
+        "nvim-treesitter/nvim-treesitter",
+        branch = "master",
+        lazy = false,
+        build = ":TSUpdate",
+        config = function()
+            require("nvim-treesitter.configs").setup({
+                ensure_installed = { "lua", "javascript", "typescript", "html", "css" }, -- choose your languages
+                sync_install = false,
+                auto_install = true,
+                highlight = {
+                    enable = true, -- enables syntax highlighting
+                    additional_vim_regex_highlighting = false,
+                },
+            })
+        end,
+    },
 
-	{
-		'numToStr/Comment.nvim',
-	},
+    {
+        'numToStr/Comment.nvim',
+    },
 
     -- mason for managing LSPs
     {
@@ -69,7 +69,11 @@ return {
             local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
             lspconfig.tsserver.setup({
-                capabilities = capabilities
+                capabilities = capabilities,
+                on_attach = function(_, bufnr)
+                    local opts = { buffer = bufnr, desc = "LSP Hover" }
+                    vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
+                end,
             })
         end,
     },
@@ -102,15 +106,15 @@ return {
 
 
     {
-		"nvimtools/none-ls.nvim",
-		event = { "BufReadPre", "BufNewFile" },
-		dependencies = {
-			"nvim-lua/plenary.nvim", -- required dependency
-		},
-		config = function()
-			require("config.none-ls")
-		end,
-	},
+        "nvimtools/none-ls.nvim",
+        event = { "BufReadPre", "BufNewFile" },
+        dependencies = {
+            "nvim-lua/plenary.nvim", -- required dependency
+        },
+        config = function()
+            require("config.none-ls")
+        end,
+    },
 
     {
         'windwp/nvim-autopairs',
@@ -118,6 +122,11 @@ return {
         config = true
         -- use opts = {} for passing setup options
         -- this is equivalent to setup({}) function
+    },
+
+    {
+        "mg979/vim-visual-multi",
+        branch = "master"
     }
 }
 
