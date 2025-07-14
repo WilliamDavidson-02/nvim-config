@@ -16,6 +16,7 @@ vim.keymap.set("v", "<leader>y", "\"+y")
 vim.keymap.set("n", "<leader>Y", "\"+Y")
 
 vim.keymap.set("i", "<S-Enter>", "<Esc>O", { noremap = true })
+vim.keymap.set("i", "<C-Enter>", "<Esc>o", { noremap = true, silent = true })
 
 vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float)
 vim.keymap.set("n", "<leader>ec", function()
