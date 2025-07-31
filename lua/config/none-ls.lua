@@ -8,7 +8,7 @@ null_ls.setup({
   sources = {
     formatting.prettier.with({
       extra_filetypes = { "svelte", "astro" }, -- optional
-      extra_args = { "--no-semi", "--single-quote" }, -- optional prettier config
+      -- extra_args = { "--no-semi", "--single-quote" }, -- optional prettier config
     }),
   },
   on_attach = function(client, bufnr)
