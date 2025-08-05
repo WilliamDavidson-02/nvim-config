@@ -21,6 +21,7 @@ require("lazy").setup({
         { import = "plugins.git" },
         { import = "plugins.lsp" },
         { import = "plugins.treesitter" },
+        { import = "plugins.editor" },
     },
     install = {
         colorscheme = { "solarized-osaka" },
