@@ -20,18 +20,17 @@ vim.keymap.set("i", "<C-Enter>", "<Esc>o", { noremap = true, silent = true })
 
 vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float)
 vim.keymap.set("n", "<leader>ec", function()
-  local diag = vim.diagnostic.get()
-  local current_line = vim.api.nvim_win_get_cursor(0)[1]
+    local diag = vim.diagnostic.get()
+    local current_line = vim.api.nvim_win_get_cursor(0)[1]
 
-  -- Filter diagnostics for the current line
-  for _, d in ipairs(diag) do
-    if d.lnum + 1 == current_line then
-      vim.fn.setreg("+", d.message)  -- Copy to system clipboard
-      vim.notify("Copied diagnostic: " .. d.message)
-      return
+    -- Filter diagnostics for the current line
+    for _, d in ipairs(diag) do
+        if d.lnum + 1 == current_line then
+            vim.fn.setreg("+", d.message) -- Copy to system clipboard
+            vim.notify("Copied diagnostic: " .. d.message)
+            return
+        end
     end
-  end
 
-  vim.notify("No diagnostic message found on this line", vim.log.levels.WARN)
+    vim.notify("No diagnostic message found on this line", vim.log.levels.WARN)
 end, { desc = "Copy diagnostic message to clipboard" })
-
